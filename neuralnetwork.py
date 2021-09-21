@@ -185,8 +185,9 @@ def run_backpropagation(x_input_array, y_output_array, loss_func,
             average_loss.append(current_loss)
 
             if (i + 1) % batch_size == 0 or i == len(x_input_array) - 1:
-                outputs = outputs / batch_size
-                y_stars = y_stars / batch_size
+                if batch_size > 1:
+                    outputs = outputs / batch_size
+                    y_stars = y_stars / batch_size
                 weights, momentum = back_propagation(outputs[number_of_layers][np.newaxis].T,
                                                      y_stars[np.newaxis].T, weights, outputs,
                                                      alpha, deriv_loss_func, beta, momentum)
